@@ -3,7 +3,7 @@ import Blade from './Blade'
 import PIXI from './pixi'
 import resize from './resize'
 
-const kaleidoscope = options => {
+const assignDefaults = options => {
   const defaultOptions = {
     slices: 16,
     imageSource: 'oldplum.png',
@@ -11,28 +11,40 @@ const kaleidoscope = options => {
     yPanSpeed: 0.15,
     view: document.getElementById('kaleidoscope')
   }
-
-  const slices = options.slices * 2
-  options = Object.assign({}, defaultOptions, options)
-  const app = new PIXI.Application({ view: options.view })
-
-  let center = resize(app)
-  window.onresize = () => { center = resize(app) }
-
-  const blades = []
-  for (let i = 0; i < slices; i++) {
-    blades.push(new Blade(i, options.imageSource, app, center, slices, options.debugMasks))
-  }
-
-  app.ticker.add(delta => {
-    blades.forEach(blade => {
-      if (!options.debugMasks) {
-        blade.image.tilePosition.x -= options.xPanSpeed * delta
-        blade.image.tilePosition.y -= options.yPanSpeed * delta
-      }
-      blade.container.position = center
-    })
-  })
+  return Object.assign({}, defaultOptions, options)
 }
 
-export default kaleidoscope
+class Kaleidoscope {
+  constructor (options) {
+    options = assignDefaults(options)
+    this.slices = options.slices * 2
+
+    const app = new PIXI.Application({ view: options.view })
+    this.app = app
+
+    const resizeApp = () => { this.center = resize(app, options.view) }
+    resizeApp()
+    window.addEventListener('resize', resizeApp)
+
+    this.setImage(options.imageSource, options.debugMasks)
+
+    const updateBlades = delta => {
+      this.blades.forEach(blade => {
+        blade.update(this.center, delta, options.xPanSpeed, options.yPanSpeed, options.debugMasks)
+      })
+    }
+    app.ticker.add(updateBlades)
+  }
+  setImage (imageSource, debugMasks) {
+    if (!this.blades) this.blades = []
+    this.blades.forEach(blade => blade.destroy())
+    const blades = []
+    for (let i = 0; i < this.slices; i++) {
+      blades.push(new Blade(i, imageSource, this.app, this.center, this.slices, debugMasks))
+    }
+
+    this.blades = blades
+  }
+}
+
+export default Kaleidoscope

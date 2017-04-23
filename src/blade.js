@@ -45,7 +45,19 @@ class Blade {
     const container = new KaleidoscopeContainer(image, offset, center, i, numberOfBlades, debugMasks)
     image.mask.draw(offset)
     app.stage.addChild(container)
-    return { container, image }
+    this.image = image
+    this.container = container
+  }
+  update (center, delta, xPanSpeed, yPanSpeed, debugMasks) {
+    if (!debugMasks) {
+      this.image.tilePosition.x -= xPanSpeed * delta
+      this.image.tilePosition.y -= yPanSpeed * delta
+    }
+    this.container.position = center
+  }
+  destroy () {
+    this.image.destroy()
+    this.container.destroy()
   }
 }
 

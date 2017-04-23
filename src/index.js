@@ -1,4 +1,4 @@
-import kaleidoscope from './kaleidoscope'
+import Kaleidoscope from './Kaleidoscope'
 
 const options = {
   slices: 15,
@@ -10,4 +10,13 @@ const options = {
   debugMasks: false
 }
 
-kaleidoscope(options)
+let k = new Kaleidoscope(options)
+setTimeout(() => {
+  k.setImage('garden.jpg')
+  // k = new Kaleidoscope(options)
+}, 2000)
+
+setTimeout(() => {
+  k.setImage('oldplum.png')
+  // k = new Kaleidoscope(options)
+}, 4000)
