@@ -31,7 +31,7 @@ class KaleidoscopeContainer extends PIXI.Container {
 class Blade {
   constructor (i, imageSource, app, center, numberOfBlades) {
     const offset = ((2 * Math.PI) / numberOfBlades)
-    const image = KaleidoscopeImage.fromImage(imageSource, app.renderer.width, app.renderer.height)
+    const image = KaleidoscopeImage.fromImage(imageSource, app.renderer.width * 2, app.renderer.height * 2)
     const container = new KaleidoscopeContainer(image, offset, center, i)
     image.mask.draw(numberOfBlades)
     app.stage.addChild(container)
