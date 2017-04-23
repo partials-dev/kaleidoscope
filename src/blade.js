@@ -1,8 +1,6 @@
 import PIXI from './pixi'
 import BladeMask from './BladeMask'
 
-window.TWO_PI = 2 * Math.PI
-
 class KaleidoscopeImage extends PIXI.extras.TilingSprite {
   static fromImage (source, width, height, debugMasks) {
     const image = super.fromImage(source, width, height)
@@ -26,8 +24,8 @@ class KaleidoscopeContainer extends PIXI.Container {
     } else {
       this.addChild(image.mask)
     }
-    this.pivot = this.center
-    this.position = center
+    // this.pivot = this.center
+    // this.position = center
     this.rotation = offset * i
     if (isEven(i)) this.mirror(offset, numberOfBlades)
   }

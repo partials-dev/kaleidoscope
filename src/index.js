@@ -9,4 +9,5 @@ const options = {
   rotationSpeed: 0.000,
   debugMasks: false
 }
+
 kaleidoscope(options)
