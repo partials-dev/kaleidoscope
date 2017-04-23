@@ -1,22 +1,16 @@
-import Kaleidoscope from './Kaleidoscope'
+import ReactDOM from 'react-dom'
+import React from 'react'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import reducer from './reducers'
+import App from './components/work/App'
 
-const options = {
-  slices: 15,
-  imageSource: 'oldplum.png',
-  xPanSpeed: 0.15,
-  yPanSpeed: 0.15,
-  view: document.getElementById('kaleidoscope'),
-  rotationSpeed: 0.000,
-  debugMasks: false
-}
+const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const store = createStore(reducer, reduxDevTools)
 
-let k = new Kaleidoscope(options)
-setTimeout(() => {
-  k.setImage('garden.jpg')
-  // k = new Kaleidoscope(options)
-}, 2000)
-
-setTimeout(() => {
-  k.setImage('oldplum.png')
-  // k = new Kaleidoscope(options)
-}, 4000)
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('react-root')
+)
