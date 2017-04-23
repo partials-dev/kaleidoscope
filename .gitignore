@@ -1,7 +1,7 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # copyrighted assets
-public/eternity.jpg
+public/gitignore
 src/derp.js
 
 # dependencies
