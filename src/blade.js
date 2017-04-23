@@ -1,27 +1,39 @@
 import PIXI from './pixi'
 import BladeMask from './BladeMask'
 
+window.TWO_PI = 2 * Math.PI
+
 class KaleidoscopeImage extends PIXI.extras.TilingSprite {
-  static fromImage (source, width, height) {
+  static fromImage (source, width, height, debugMasks) {
     const image = super.fromImage(source, width, height)
     image.anchor.set(0.5)
-    image.mask = new BladeMask()
-    return image
+    if (!debugMasks) {
+      image.mask = new BladeMask()
+      return image
+    } else {
+      return { mask: new BladeMask() }
+    }
   }
 }
 
+const isEven = n => (n % 2) === 0
+
 class KaleidoscopeContainer extends PIXI.Container {
-  constructor (image, offset, center, i) {
+  constructor (image, offset, center, i, numberOfBlades, debugMasks) {
     super()
-    this.addChild(image, image.mask)
+    if (!debugMasks) {
+      this.addChild(image, image.mask)
+    } else {
+      this.addChild(image.mask)
+    }
     this.pivot = this.center
     this.position = center
     this.rotation = offset * i
-    if ((i % 2) === 0) this.mirror(offset)
+    if (isEven(i)) this.mirror(offset, numberOfBlades)
   }
-  mirror (offset) {
+  mirror (offset, numberOfBlades) {
     this.scale.x = -1
-    this.rotation += offset
+    if (isEven(numberOfBlades / 2)) this.rotation += offset
   }
   get center () {
     return new PIXI.Point(this.width / 2, this.height / 2)
@@ -29,11 +41,11 @@ class KaleidoscopeContainer extends PIXI.Container {
 }
 
 class Blade {
-  constructor (i, imageSource, app, center, numberOfBlades) {
+  constructor (i, imageSource, app, center, numberOfBlades, debugMasks = false) {
     const offset = ((2 * Math.PI) / numberOfBlades)
-    const image = KaleidoscopeImage.fromImage(imageSource, app.renderer.width * 2, app.renderer.height * 2)
-    const container = new KaleidoscopeContainer(image, offset, center, i)
-    image.mask.draw(numberOfBlades)
+    const image = KaleidoscopeImage.fromImage(imageSource, app.renderer.width * 2.3, app.renderer.height * 2.3, debugMasks)
+    const container = new KaleidoscopeContainer(image, offset, center, i, numberOfBlades, debugMasks)
+    image.mask.draw(offset)
     app.stage.addChild(container)
     return { container, image }
   }

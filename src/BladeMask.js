@@ -13,7 +13,7 @@ function randomColor () {
 
 function drawBlade (angleStart, angleEnd, center, graphics) {
   // graphics.lineStyle(10, 0xFF0000, 1)
-  const radius = 10000
+  const radius = 5000
   const a = bladeTip(radius, angleStart)
   const b = bladeTip(radius, angleEnd)
   graphics.moveTo(center.x, center.y)
@@ -23,15 +23,14 @@ function drawBlade (angleStart, angleEnd, center, graphics) {
   return graphics
 }
 
-function drawWindmill (numberOfBlades, graphics, center = { x: 0, y: 0 }) {
-  const offset = ((2 * Math.PI) / numberOfBlades)
+function drawWindmill (offset, graphics, center = { x: 0, y: 0 }) {
   graphics.beginFill(randomColor())
   drawBlade(0, offset, center, graphics)
   graphics.endFill()
 }
 
 export default class BladeMask extends PIXI.Graphics {
-  draw (numberOfBlades) {
-    drawWindmill(numberOfBlades, this)
+  draw (offset) {
+    drawWindmill(offset, this)
   }
 }
