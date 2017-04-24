@@ -11,7 +11,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onClick () {
       dispatch({
-        type: 'UPDATE_SPEED'
+        type: 'UPDATE_PAN_SPEED'
       })
     }
   }

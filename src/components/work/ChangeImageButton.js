@@ -11,7 +11,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onClick () {
       dispatch({
-        type: 'UPDATE_IMAGE'
+        type: 'UPDATE_IMAGE_SOURCE'
       })
     }
   }

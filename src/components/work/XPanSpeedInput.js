@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = state => {
   return {
-    value: state.yPanSpeed
+    value: state.ui.xPanSpeedInput
   }
 }
 
@@ -11,13 +11,13 @@ const mapDispatchToProps = dispatch => {
   return {
     onChange (number) {
       dispatch({
-        type: 'UPDATE_PAN_SPEED',
-        yPanSpeed: number
+        type: 'UPDATE_X_PAN_SPEED_INPUT',
+        xPanSpeedInput: number
       })
     }
   }
 }
 
-const YSpeedInput = connect(mapStateToProps, mapDispatchToProps)(NumberInput)
+const XPanSpeedInput = connect(mapStateToProps, mapDispatchToProps)(NumberInput)
 
-export default YSpeedInput
+export default XPanSpeedInput

@@ -2,13 +2,13 @@ import React from 'react'
 import ImageSourceInput from './ImageSourceInput'
 import ChangeImageButton from './ChangeImageButton'
 import ChangeSpeedButton from './ChangeSpeedButton'
-import XSpeedInput from './XSpeedInput'
-import YSpeedInput from './YSpeedInput'
+import XPanSpeedInput from './XPanSpeedInput'
+import YPanSpeedInput from './YPanSpeedInput'
 
 const App = props => {
   return <div>
     <ImageSourceInput /><ChangeImageButton />
-    <XSpeedInput /><YSpeedInput /><ChangeSpeedButton />
+    <XPanSpeedInput /><YPanSpeedInput /><ChangeSpeedButton />
   </div>
 }
 

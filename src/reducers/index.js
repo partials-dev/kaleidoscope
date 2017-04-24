@@ -1,78 +1,46 @@
 import Kaleidoscope from '../Kaleidoscope'
+import uiReducer from './ui'
 
 const defaultState = {
-  imageSource: '',
-  currentImageSource: 'oldplum.png',
+  imageSource: 'oldplum.png',
   xPanSpeed: 0.15,
-  yPanSpeed: 0.15,
-  currentXPanSpeed: 0.15,
-  currentYPanSpeed: 0.15
+  yPanSpeed: 0.15
 }
 
 const options = {
   slices: 15,
-  imageSource: defaultState.currentImageSource,
+  imageSource: defaultState.imageSource,
   xPanSpeed: defaultState.xPanSpeed,
   yPanSpeed: defaultState.yPanSpeed,
   view: document.getElementById('kaleidoscope'),
-  rotationSpeed: 0.000,
   debugMasks: false
 }
 
 let k = new Kaleidoscope(options)
 
 export default function (state = defaultState, action) {
+  const ui = uiReducer(state.ui, action)
+  state = Object.assign({}, { ui })
   switch (action.type) {
     case 'UPDATE_IMAGE_SOURCE': {
       const newState = Object.assign(
         {},
         state,
-        { imageSource: action.imageSource }
+        { imageSource: ui.imageSourceInput }
       )
-      return newState
-    }
-    case 'UPDATE_IMAGE': {
-      const newState = Object.assign(
-        {},
-        state,
-        { currentImageSource: state.imageSource }
-      )
-      k.setImage(newState.currentImageSource)
+      k.setImage(newState.imageSource)
       return newState
     }
     case 'UPDATE_PAN_SPEED': {
-      let xPanSpeed
-      if (action.xPanSpeed == null) {
-        xPanSpeed = state.xPanSpeed
-      } else {
-        xPanSpeed = action.xPanSpeed
-      }
-      let yPanSpeed
-      if (action.yPanSpeed == null) {
-        yPanSpeed = state.yPanSpeed
-      } else {
-        yPanSpeed = action.yPanSpeed
-      }
       const newState = Object.assign(
         {},
         state,
         {
-          xPanSpeed,
-          yPanSpeed
+          xPanSpeed: ui.xPanSpeedInput,
+          yPanSpeed: ui.yPanSpeedInput
         }
       )
-      return newState
-    }
-    case 'UPDATE_SPEED': {
-      const newState = Object.assign(
-        {},
-        state,
-        {
-          currentXPanSpeed: state.xPanSpeed,
-          currentYPanSpeed: state.yPanSpeed
-        }
-      )
-      k.setSpeed(state.xPanSpeed, state.yPanSpeed)
+      k.setSpeed(newState.xPanSpeed, newState.yPanSpeed)
       return newState
     }
     default:
