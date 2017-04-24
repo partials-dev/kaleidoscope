@@ -1,4 +1,5 @@
 const defaultState = {
+  showControls: false,
   imageSourceInput: '',
   xPanSpeedInput: 0.15,
   yPanSpeedInput: 0.15
@@ -27,6 +28,14 @@ export default function (state = defaultState, action) {
         {},
         state,
         { yPanSpeedInput: action.yPanSpeedInput }
+      )
+      return newState
+    }
+    case 'UPDATE_SHOW_CONTROLS': {
+      const newState = Object.assign(
+        {},
+        state,
+        { showControls: action.showControls }
       )
       return newState
     }

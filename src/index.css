@@ -3,3 +3,12 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.showable.show {
+  opacity: 1;
+}
+
+.showable {
+  opacity: 0;
+  transition: opacity 0.25s;
+}

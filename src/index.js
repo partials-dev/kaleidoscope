@@ -14,3 +14,13 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 )
+
+let hideControls
+window.addEventListener('mousemove', () => {
+  clearTimeout(hideControls)
+  hideControls = setTimeout(() => {
+    store.dispatch({ type: 'UPDATE_SHOW_CONTROLS', showControls: false })
+  }, 1000)
+  store.dispatch({ type: 'UPDATE_SHOW_CONTROLS', showControls: true })
+  console.log('derp')
+})
