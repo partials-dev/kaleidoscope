@@ -14,6 +14,18 @@ const mapDispatchToProps = dispatch => {
         type: 'UPDATE_IMAGE_SOURCE_INPUT',
         imageSourceInput: text
       })
+    },
+    onFocus () {
+      dispatch({
+        type: 'UPDATE_CONTROLS_HAVE_FOCUS',
+        controlsHaveFocus: true
+      })
+    },
+    onBlur () {
+      dispatch({
+        type: 'UPDATE_CONTROLS_HAVE_FOCUS',
+        controlsHaveFocus: false
+      })
     }
   }
 }

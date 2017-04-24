@@ -4,7 +4,7 @@ const TextInput = props => {
   const onChange = event => {
     props.onChange(event.target.value)
   }
-  return <input type='text' value={props.value} onChange={onChange} />
+  return <input onFocus={props.onFocus} onBlur={props.onBlur} type='text' value={props.value} onChange={onChange} />
 }
 
 export default TextInput

@@ -1,8 +1,20 @@
 const defaultState = {
   showControls: false,
+  mouseMovedRecently: false,
+  controlsHaveFocus: false,
   imageSourceInput: '',
   xPanSpeedInput: 0.15,
   yPanSpeedInput: 0.15
+}
+
+function updateShowControls (state) {
+  const showControls = state.mouseMovedRecently || state.mouseIsHoveringOverControls || state.controlsHaveFocus
+  const newState = Object.assign(
+    {},
+    state,
+    { showControls }
+  )
+  return newState
 }
 
 export default function (state = defaultState, action) {
@@ -31,13 +43,35 @@ export default function (state = defaultState, action) {
       )
       return newState
     }
-    case 'UPDATE_SHOW_CONTROLS': {
+    case 'UPDATE_MOUSE_MOVED_RECENTLY': {
       const newState = Object.assign(
         {},
         state,
-        { showControls: action.showControls }
+        {
+          mouseMovedRecently: action.mouseMovedRecently
+        }
       )
-      return newState
+      return updateShowControls(newState)
+    }
+    case 'UPDATE_MOUSE_IS_HOVERING_OVER_CONTROLS': {
+      const newState = Object.assign(
+        {},
+        state,
+        {
+          mouseIsHoveringOverControls: action.mouseIsHoveringOverControls
+        }
+      )
+      return updateShowControls(newState)
+    }
+    case 'UPDATE_CONTROLS_HAVE_FOCUS': {
+      const newState = Object.assign(
+        {},
+        state,
+        {
+          controlsHaveFocus: action.controlsHaveFocus
+        }
+      )
+      return updateShowControls(newState)
     }
     default:
       return state

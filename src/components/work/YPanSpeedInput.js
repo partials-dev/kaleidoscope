@@ -14,6 +14,18 @@ const mapDispatchToProps = dispatch => {
         type: 'UPDATE_Y_PAN_SPEED_INPUT',
         yPanSpeedInput: number
       })
+    },
+    onFocus () {
+      dispatch({
+        type: 'UPDATE_CONTROLS_HAVE_FOCUS',
+        controlsHaveFocus: true
+      })
+    },
+    onBlur () {
+      dispatch({
+        type: 'UPDATE_CONTROLS_HAVE_FOCUS',
+        controlsHaveFocus: false
+      })
     }
   }
 }

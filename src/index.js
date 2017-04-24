@@ -19,8 +19,7 @@ let hideControls
 window.addEventListener('mousemove', () => {
   clearTimeout(hideControls)
   hideControls = setTimeout(() => {
-    store.dispatch({ type: 'UPDATE_SHOW_CONTROLS', showControls: false })
+    store.dispatch({ type: 'UPDATE_MOUSE_MOVED_RECENTLY', mouseMovedRecently: false })
   }, 1000)
-  store.dispatch({ type: 'UPDATE_SHOW_CONTROLS', showControls: true })
-  console.log('derp')
+  store.dispatch({ type: 'UPDATE_MOUSE_MOVED_RECENTLY', mouseMovedRecently: true })
 })

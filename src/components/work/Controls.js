@@ -20,7 +20,14 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-  return {}
+  return {
+    onMouseEnter () {
+      dispatch({ type: 'UPDATE_MOUSE_IS_HOVERING_OVER_CONTROLS', mouseIsHoveringOverControls: true })
+    },
+    onMouseLeave () {
+      dispatch({ type: 'UPDATE_MOUSE_IS_HOVERING_OVER_CONTROLS', mouseIsHoveringOverControls: false })
+    }
+  }
 }
 
 const Controls = connect(mapStateToProps, mapDispatchToProps)(Showable)
