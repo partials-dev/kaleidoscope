@@ -55,6 +55,10 @@ class Blade {
     }
     this.container.position = center
   }
+  appDidResize (app) {
+    this.image.height = app.renderer.height * 2.3
+    this.image.width = app.renderer.width * 2.3
+  }
   destroy () {
     this.image.destroy()
     this.container.destroy()

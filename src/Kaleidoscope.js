@@ -22,8 +22,12 @@ class Kaleidoscope {
     this.yPanSpeed = options.yPanSpeed
     const app = new PIXI.Application({ view: options.view })
     this.app = app
+    this.blades = []
 
-    const resizeApp = () => { this.center = resize(app, options.view) }
+    const resizeApp = () => {
+      this.center = resize(app, options.view)
+      this.blades.forEach(blade => blade.appDidResize(app))
+    }
     resizeApp()
     window.addEventListener('resize', resizeApp)
 
@@ -41,7 +45,6 @@ class Kaleidoscope {
     this.yPanSpeed = yPanSpeed
   }
   setImage (imageSource, debugMasks) {
-    if (!this.blades) this.blades = []
     this.blades.forEach(blade => blade.destroy())
     const blades = []
     for (let i = 0; i < this.slices; i++) {

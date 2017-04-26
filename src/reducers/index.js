@@ -8,7 +8,7 @@ const defaultState = {
 }
 
 const options = {
-  slices: 15,
+  slices: 20,
   imageSource: defaultState.imageSource,
   xPanSpeed: defaultState.xPanSpeed,
   yPanSpeed: defaultState.yPanSpeed,

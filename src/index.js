@@ -23,3 +23,5 @@ window.addEventListener('mousemove', () => {
   }, 1000)
   store.dispatch({ type: 'UPDATE_MOUSE_MOVED_RECENTLY', mouseMovedRecently: true })
 })
+
+console.log('Boston Ivy: Jacek Halicki - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=44903471')
