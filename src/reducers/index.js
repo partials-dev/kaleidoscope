@@ -2,13 +2,17 @@ import Kaleidoscope from '../Kaleidoscope'
 import uiReducer from './ui'
 
 const defaultState = {
-  imageSource: 'oldplum.png',
+  imageSource: 'creation.png',
   xPanSpeed: 0.15,
-  yPanSpeed: 0.15
+  yPanSpeed: 0.15,
+  tilePosition: {
+    x: 0,
+    y: 0
+  }
 }
 
 const options = {
-  slices: 20,
+  slices: 8,
   imageSource: defaultState.imageSource,
   xPanSpeed: defaultState.xPanSpeed,
   yPanSpeed: defaultState.yPanSpeed,
