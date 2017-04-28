@@ -16,10 +16,12 @@ ReactDOM.render(
 )
 
 const imageId = window.location.pathname.substring(1)
-store.dispatch({
-  type: 'UPDATE_IMAGE_SOURCE',
-  imageSource: `http://i.imgur.com/${imageId}`
-})
+if (imageId.trim().length > 0) {
+  store.dispatch({
+    type: 'UPDATE_IMAGE_SOURCE',
+    imageSource: `http://i.imgur.com/${imageId}`
+  })
+}
 
 const imageWasUploaded = res => {
   if (res.success === true) {
