@@ -12,3 +12,7 @@ body {
   opacity: 0;
   transition: opacity 0.25s;
 }
+
+#dropzone p {
+  display: none;
+}

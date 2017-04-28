@@ -14,12 +14,15 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>Kaleidoscope</title>
+    <link href="%PUBLIC_URL%/imgur.min.css" rel="stylesheet" media="screen">
     <script src="pixi.min.js"></script>
   </head>
   <body>
     <div id="root" style="z-index: 0;">
       <!-- The UI for this app is written in React. Check the components folder. -->
     </div>
-    <canvas id="kaleidoscope" style="width: 100vw; height: 100vh; position: absolute; left: 0px; top: 0px; z-index: -1;"></canvas>
+    <canvas id="kaleidoscope" style="width: 100vw; height: 100vh; position: absolute; left: 0px; top: 0px; z-index: -2;"></canvas>
+    <div id='dropzone' class='dropzone' style="border: none; width: 100vw; height: 100vh; position: absolute; left: 0px; top: 0px; z-index: -1;"></div>
+    <script src="%PUBLIC_URL%/imgur.min.js"></script>
   </body>
 </html>

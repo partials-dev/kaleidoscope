@@ -15,6 +15,30 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
+const imageId = window.location.pathname.substring(1)
+store.dispatch({
+  type: 'UPDATE_IMAGE_SOURCE',
+  imageSource: `http://i.imgur.com/${imageId}`
+})
+
+const imageWasUploaded = res => {
+  if (res.success === true) {
+    const imageSource = res.data.link
+    store.dispatch({
+      type: 'UPDATE_IMAGE_SOURCE',
+      imageSource
+    })
+  } else {
+    console.log('Got an error')
+    console.log(JSON.stringify(res))
+  }
+}
+
+const imgurUploader = new window.Imgur({
+  clientid: '9c277378760a139',
+  callback: imageWasUploaded
+})
+
 let hideControls
 window.addEventListener('mousemove', () => {
   clearTimeout(hideControls)

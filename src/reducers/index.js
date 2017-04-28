@@ -1,18 +1,11 @@
 import Kaleidoscope from '../Kaleidoscope'
 import uiReducer from './ui'
-import firebase from 'firebase/app'
-import db from 'firebase/database'
 
-const config = {
-  apiKey: 'AIzaSyAfXK9K41iWoZRus__OBOn9LPrfhgjJz30',
-  authDomain: 'kaleidoscope-937e0.firebaseapp.com',
-  databaseURL: 'https://kaleidoscope-937e0.firebaseio.com',
-  projectId: 'kaleidoscope-937e0',
-  storageBucket: 'kaleidoscope-937e0.appspot.com',
-  messagingSenderId: '773670076024'
+const getId = url => {
+  const parser = document.createElement('a')
+  parser.href = url
+  return parser.pathname.substring(1)
 }
-
-firebase.initializeApp(config)
 
 const defaultState = {
   imageSource: 'processed_star.png',
@@ -43,8 +36,10 @@ export default function (state = defaultState, action) {
       const newState = Object.assign(
         {},
         state,
-        { imageSource: ui.imageSourceInput }
+        { imageSource: action.imageSource || ui.imageSourceInput }
       )
+      const id = getId(newState.imageSource)
+      window.history.pushState(null, null, '/' + id)
       k.setImage(newState.imageSource)
       return newState
     }
