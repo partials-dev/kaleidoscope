@@ -62,6 +62,9 @@ class Blade {
     this.image.height = app.renderer.height * 2.3
     this.image.width = app.renderer.width * 2.3
   }
+  setImageTexture (texture) {
+    this.image.texture = texture
+  }
   destroy () {
     this.image.destroy()
     this.container.destroy()

@@ -31,7 +31,7 @@ class Kaleidoscope {
     resizeApp()
     window.addEventListener('resize', resizeApp)
 
-    this.setImage(options.imageSource, options.debugMasks)
+    this.createBlades(options.imageSource, options.debugMasks)
 
     const updateBlades = delta => {
       this.blades.forEach(blade => {
@@ -40,11 +40,11 @@ class Kaleidoscope {
     }
     app.ticker.add(updateBlades)
   }
-  setSpeed (xPanSpeed, yPanSpeed) {
+  setPanSpeed (xPanSpeed, yPanSpeed) {
     this.xPanSpeed = xPanSpeed
     this.yPanSpeed = yPanSpeed
   }
-  setImage (imageSource, debugMasks) {
+  createBlades (imageSource, debugMasks) {
     this.blades.forEach(blade => blade.destroy())
     const blades = []
     for (let i = 0; i < this.slices; i++) {
@@ -52,6 +52,10 @@ class Kaleidoscope {
     }
 
     this.blades = blades
+  }
+  setImage (imageSource, debugMasks) {
+    const texture = PIXI.Texture.fromImage(imageSource)
+    this.blades.forEach(blade => blade.setImageTexture(texture))
   }
 }
 

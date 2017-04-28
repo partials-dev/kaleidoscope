@@ -8,6 +8,7 @@ const getId = url => {
 }
 
 const defaultState = {
+  slices: 8,
   imageSource: 'processed_star.png',
   xPanSpeed: 0.15,
   yPanSpeed: 0.15,
@@ -26,21 +27,21 @@ const options = {
   debugMasks: false
 }
 
-let k = new Kaleidoscope(options)
+// let k = new Kaleidoscope(options)
 
 export default function (state = defaultState, action) {
   const ui = uiReducer(state.ui, action)
-  state = Object.assign({}, { ui })
+  state = Object.assign({}, state, { ui })
   switch (action.type) {
     case 'UPDATE_IMAGE_SOURCE': {
       const newState = Object.assign(
         {},
         state,
-        { imageSource: action.imageSource || ui.imageSourceInput }
+        { imageSource: action.imageSource }
       )
       const id = getId(newState.imageSource)
       window.history.pushState(null, null, '/' + id)
-      k.setImage(newState.imageSource)
+      // k.setImage(newState.imageSource)
       return newState
     }
     case 'UPDATE_PAN_SPEED': {
@@ -52,7 +53,7 @@ export default function (state = defaultState, action) {
           yPanSpeed: ui.yPanSpeedInput
         }
       )
-      k.setSpeed(newState.xPanSpeed, newState.yPanSpeed)
+      // k.setSpeed(newState.xPanSpeed, newState.yPanSpeed)
       return newState
     }
     default:
