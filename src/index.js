@@ -19,13 +19,13 @@ const imageId = window.location.pathname.substring(1)
 if (imageId.trim().length > 0) {
   store.dispatch({
     type: 'UPDATE_IMAGE_SOURCE',
-    imageSource: `http://i.imgur.com/${imageId}`
+    imageSource: `https://i.imgur.com/${imageId}`
   })
 }
 
 const imageWasUploaded = res => {
   if (res.success === true) {
-    const imageSource = res.data.link
+    const imageSource = res.data.link.replace('http://', 'https://')
     store.dispatch({
       type: 'UPDATE_IMAGE_SOURCE',
       imageSource
