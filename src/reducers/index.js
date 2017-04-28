@@ -1,8 +1,21 @@
 import Kaleidoscope from '../Kaleidoscope'
 import uiReducer from './ui'
+import firebase from 'firebase/app'
+import db from 'firebase/database'
+
+const config = {
+  apiKey: 'AIzaSyAfXK9K41iWoZRus__OBOn9LPrfhgjJz30',
+  authDomain: 'kaleidoscope-937e0.firebaseapp.com',
+  databaseURL: 'https://kaleidoscope-937e0.firebaseio.com',
+  projectId: 'kaleidoscope-937e0',
+  storageBucket: 'kaleidoscope-937e0.appspot.com',
+  messagingSenderId: '773670076024'
+}
+
+firebase.initializeApp(config)
 
 const defaultState = {
-  imageSource: 'creation.png',
+  imageSource: 'processed_star.png',
   xPanSpeed: 0.15,
   yPanSpeed: 0.15,
   tilePosition: {
