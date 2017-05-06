@@ -4,13 +4,14 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import reducer from './reducers'
 import App from './components/work/App'
+import setupInteraction from './interaction'
 
 const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 const store = createStore(reducer, reduxDevTools)
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+  <App />
   </Provider>,
   document.getElementById('root')
 )
@@ -37,7 +38,7 @@ const imageWasUploaded = res => {
 }
 
 const imgurUploader = new window.Imgur({
-  clientid: '9c277378760a139',
+  clientid: process.env.REACT_APP_IMGUR_CLIENT_ID,
   callback: imageWasUploaded
 })
 
@@ -50,4 +51,5 @@ window.addEventListener('mousemove', () => {
   store.dispatch({ type: 'UPDATE_MOUSE_MOVED_RECENTLY', mouseMovedRecently: true })
 })
 
-console.log('Boston Ivy: Jacek Halicki - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=44903471')
+
+setupInteraction(store.dispatch.bind(store))

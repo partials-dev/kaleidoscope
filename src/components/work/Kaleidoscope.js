@@ -6,7 +6,8 @@ const mapStateToProps = state => {
     slices: state.slices,
     imageSource: state.imageSource,
     xPanSpeed: state.xPanSpeed,
-    yPanSpeed: state.yPanSpeed
+    yPanSpeed: state.yPanSpeed,
+    tilePosition: state.tilePosition
   }
 }
 

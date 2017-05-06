@@ -1,4 +1,3 @@
-import Kaleidoscope from '../Kaleidoscope'
 import uiReducer from './ui'
 
 const getId = url => {
@@ -8,26 +7,24 @@ const getId = url => {
 }
 
 const defaultState = {
-  slices: 8,
+  slices: 7,
   imageSource: 'processed_star.png',
-  xPanSpeed: 0.15,
-  yPanSpeed: 0.15,
+  xPanSpeed: 0.5,
+  yPanSpeed: 0.5,
   tilePosition: {
     x: 0,
     y: 0
   }
 }
 
-const options = {
-  slices: 8,
-  imageSource: defaultState.imageSource,
-  xPanSpeed: defaultState.xPanSpeed,
-  yPanSpeed: defaultState.yPanSpeed,
-  view: document.getElementById('kaleidoscope'),
-  debugMasks: false
-}
-
-// let k = new Kaleidoscope(options)
+//const options = {
+  //slices: 8,
+  //imageSource: defaultState.imageSource,
+  //xPanSpeed: defaultState.xPanSpeed,
+  //yPanSpeed: defaultState.yPanSpeed,
+  //view: document.getElementById('kaleidoscope'),
+  //debugMasks: false
+//}
 
 export default function (state = defaultState, action) {
   const ui = uiReducer(state.ui, action)
@@ -49,11 +46,22 @@ export default function (state = defaultState, action) {
         {},
         state,
         {
-          xPanSpeed: ui.xPanSpeedInput,
-          yPanSpeed: ui.yPanSpeedInput
+          xPanSpeed: action.xPanSpeed || ui.xPanSpeedInput,
+          yPanSpeed: action.yPanSpeed || ui.yPanSpeedInput
         }
       )
       // k.setSpeed(newState.xPanSpeed, newState.yPanSpeed)
+      return newState
+    }
+    case 'UPDATE_TILE_POSITION': {
+      //const newTilePosition = addPositions(state.tilePosition, action.tilePosition)
+      const newTilePosition = { x: action.tilePosition.x + state.xPanSpeed, y: action.tilePosition.y + state.yPanSpeed }
+
+      const newState = Object.assign(
+        {},
+        state,
+        { tilePosition: newTilePosition }
+      )
       return newState
     }
     default:

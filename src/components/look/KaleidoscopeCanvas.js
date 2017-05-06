@@ -4,7 +4,7 @@ import React from 'react'
 class KaleidoscopeCanvas extends React.Component {
   componentDidMount () {
     const options = Object.assign({}, this.props, { view: this.canvas })
-    this.k = new Kaleidoscope(options)
+    this.kaleidoscope = new Kaleidoscope(options)
   }
   render () {
     const style = {
@@ -18,9 +18,10 @@ class KaleidoscopeCanvas extends React.Component {
     const ref = canvas => {
       this.canvas = canvas
     }
-    if (this.k) {
-      this.k.setImage(this.props.imageSource)
-      this.k.setPanSpeed(this.props.xPanSpeed, this.props.yPanSpeed)
+    if (this.kaleidoscope) {
+      this.kaleidoscope.setImage(this.props.imageSource)
+      this.kaleidoscope.setPanSpeed(this.props.xPanSpeed, this.props.yPanSpeed)
+      this.kaleidoscope.setTilePosition(this.props.tilePosition)
     }
     return <canvas ref={ref} style={style} />
   }

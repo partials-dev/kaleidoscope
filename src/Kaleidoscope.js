@@ -20,6 +20,7 @@ class Kaleidoscope {
     this.slices = options.slices * 2
     this.xPanSpeed = options.xPanSpeed
     this.yPanSpeed = options.yPanSpeed
+    this.tilePosition = options.tilePosition
     const app = new PIXI.Application({ view: options.view })
     this.app = app
     this.blades = []
@@ -35,7 +36,7 @@ class Kaleidoscope {
 
     const updateBlades = delta => {
       this.blades.forEach(blade => {
-        blade.update(this.center, delta, this.xPanSpeed, this.yPanSpeed, options.debugMasks)
+        blade.update(this.center, delta, this.xPanSpeed, this.yPanSpeed, options.debugMasks, this.tilePosition)
       })
     }
     app.ticker.add(updateBlades)
@@ -43,6 +44,9 @@ class Kaleidoscope {
   setPanSpeed (xPanSpeed, yPanSpeed) {
     this.xPanSpeed = xPanSpeed
     this.yPanSpeed = yPanSpeed
+  }
+  setTilePosition (tilePosition) {
+    this.tilePosition = tilePosition
   }
   createBlades (imageSource, debugMasks) {
     this.blades.forEach(blade => blade.destroy())

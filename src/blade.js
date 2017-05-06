@@ -26,7 +26,7 @@ class KaleidoscopeContainer extends PIXI.Container {
     }
     // this.pivot = this.center
     // this.position = center
-    this.rotation = offset * i
+    this.rotation = offset * i - (Math.PI / 2)
     if (isEven(i)) this.mirror(offset, numberOfBlades)
   }
   mirror (offset, numberOfBlades) {
@@ -51,10 +51,12 @@ class Blade {
     this.x = this.image.tilePosition.x
     this.y = this.image.tilePosition.y
   }
-  update (center, delta, xPanSpeed, yPanSpeed, debugMasks) {
+  update (center, delta, xPanSpeed, yPanSpeed, debugMasks, tilePosition) {
     if (!debugMasks) {
-      this.image.tilePosition.x -= xPanSpeed * delta
-      this.image.tilePosition.y -= yPanSpeed * delta
+      //this.image.tilePosition.x = tilePosition.x - (xPanSpeed * delta)
+      //this.image.tilePosition.y = tilePosition.y - (yPanSpeed * delta)
+      this.image.tilePosition.x -= (xPanSpeed + tilePosition.x) * delta
+      this.image.tilePosition.y -= (yPanSpeed + tilePosition.y) * delta
     }
     this.container.position = center
   }
