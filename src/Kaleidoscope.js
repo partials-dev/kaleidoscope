@@ -3,6 +3,8 @@ import Blade from './Blade'
 import PIXI from './pixi'
 import resize from './resize'
 
+PIXI.settings.PRECISION_FRAGMENT = 'highp'
+
 const assignDefaults = options => {
   const defaultOptions = {
     slices: 16,
