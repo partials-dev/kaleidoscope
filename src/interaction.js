@@ -104,25 +104,109 @@ const setupMouseInput = dispatch => {
   updateKaleidoscopeFromMouse()
 }
 
+const flippedTop = (previous, current) => {
+  //previous = (previous * 180) - 90 // rescale previous into the -90..90 range
+  const difference = previous - current
+  const flipped = Math.abs(difference) > 90
+  return flipped
+}
+
+const flippedSide = (previous, current) => {
+  return (previous * current) < 0
+}
+
+let pointingUp = true
+let pointingLeft = false
+let previousQuadrant = null
+let currentQuadrant = null
+
+const normalizeGamma = gamma => ((gamma / 90) + 1) / 2
+const quadrant = (up, left) => {
+  if (up && !left) {
+    return 1
+  } else if (up && left) {
+    return 2
+  } else if (!up && left) {
+    return 4
+  } else {
+    return 3
+  }
+}
+
+let offset = 0
+const flipType = (prev, cur) => {
+  if (prev === 1 && cur === 4) return 'clockwise'
+  if (prev === 4 && cur === 1) return 'counterclockwise'
+  if (prev > cur) return 'clockwise'
+  if (prev < cur) return 'counterclockwise'
+}
+//const roll = (gamma, previous, current) => {
+  //if (previous === 'top-right' && current === 'bottom-left') {
+    //return gamma + 180
+  //}
+  
+  //return gamma
+//}
+
 const setupOrientationInput = dispatch => {
   let lastNormalizedBeta = null
-  let lastNormalizedGamma = null
+  let lastRawGamma = null
+  let lastGamma = null
 
   const updateKaleidoscopeFromOrientation = event => {
-    const normalizedBeta = ((event.beta / 180) + 1) / 2
-    const normalizedGamma = ((event.gamma / 90) + 1) / 2
+    let rawGamma = event.gamma
+    let anyFlipped = false
+    let newPointingUp = pointingUp
+    let newPointingLeft = pointingLeft
+
+    if (flippedTop(lastRawGamma, rawGamma)) {
+      anyFlipped = true
+      newPointingUp = !pointingUp
+    }
+
+    if (flippedSide(lastRawGamma, rawGamma)) {
+      anyFlipped = true
+      newPointingLeft = !pointingLeft
+    }
+
+    if (anyFlipped) {
+      previousQuadrant = quadrant(pointingUp, pointingLeft)
+      pointingLeft = newPointingLeft
+      pointingUp = newPointingUp
+      currentQuadrant = quadrant(pointingUp, pointingLeft)
+      const type = flipType(previousQuadrant, currentQuadrant)
+      if (flippedTop(lastRawGamma, rawGamma)) {
+        switch (type) {
+          case 'clockwise': {
+            offset += 180
+            break
+          }
+          case 'counterclockwise':
+            offset -= 180
+            break
+        }
+      }
+    }
+
+    let gamma = rawGamma
+    gamma = gamma + offset
+    let normalizedBeta = ((event.beta / 180) + 1) / 2
+
     if (lastNormalizedBeta == null) {
       lastNormalizedBeta = normalizedBeta
-      lastNormalizedGamma = normalizedGamma
+      lastRawGamma = rawGamma
+      lastGamma = gamma
     }
 
     const db = normalizedBeta - lastNormalizedBeta
-    const dg = normalizedGamma - lastNormalizedGamma
+    const dg = normalizeGamma(gamma) - normalizeGamma(lastGamma)
 
     lastNormalizedBeta = normalizedBeta
-    lastNormalizedGamma = normalizedGamma
+    lastRawGamma = rawGamma
+    lastGamma = gamma
 
-    const x = getAveragedX(db) * 5000
+    //const x = getAveragedX(db) * 5000
+    const x = 0
     const y = getAveragedY(dg) * 5000
     dispatch({ type: 'UPDATE_TILE_POSITION', tilePosition: { x, y }})
   }
@@ -133,7 +217,8 @@ const setupOrientationInput = dispatch => {
 const setupInteraction = dispatch => {
   determineModality().then(modality => {
     if (modality === 'mouse') {
-      setupMouseInput(dispatch)
+      //setupMouseInput(dispatch)
+      setupOrientationInput(dispatch)
     } else if (modality === 'orientation') {
       setupOrientationInput(dispatch)
     }
