@@ -1,4 +1,4 @@
-import PIXI from './pixi'
+import PIXI from './PIXI'
 import BladeMask from './BladeMask'
 
 class KaleidoscopeImage extends PIXI.extras.TilingSprite {

@@ -1,4 +1,4 @@
-import PIXI from './pixi'
+import PIXI from './PIXI'
 
 const resize = (app, view) => {
   const { width, height } = view.getBoundingClientRect()

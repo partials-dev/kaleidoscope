@@ -1,4 +1,4 @@
-const PIXI = window.PIXI
+import PIXI from './PIXI'
 
 const bladeTip = (radius, angle) => (
   {

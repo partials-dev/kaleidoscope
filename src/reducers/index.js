@@ -17,15 +17,6 @@ const defaultState = {
   }
 }
 
-//const options = {
-  //slices: 8,
-  //imageSource: defaultState.imageSource,
-  //xPanSpeed: defaultState.xPanSpeed,
-  //yPanSpeed: defaultState.yPanSpeed,
-  //view: document.getElementById('kaleidoscope'),
-  //debugMasks: false
-//}
-
 export default function (state = defaultState, action) {
   const ui = uiReducer(state.ui, action)
   state = Object.assign({}, state, { ui })

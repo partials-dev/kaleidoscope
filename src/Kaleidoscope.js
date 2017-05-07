@@ -1,6 +1,6 @@
 import './index.css'
 import Blade from './Blade'
-import PIXI from './pixi'
+import PIXI from './PIXI'
 import resize from './resize'
 
 PIXI.settings.PRECISION_FRAGMENT = 'highp'
