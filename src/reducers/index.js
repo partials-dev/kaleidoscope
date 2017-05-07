@@ -9,8 +9,8 @@ const getId = url => {
 const defaultState = {
   slices: 7,
   imageSource: 'processed_star.png',
-  xPanSpeed: 0.5,
-  yPanSpeed: 0.5,
+  xPanSpeed: 0.01,
+  yPanSpeed: 0.01,
   tilePosition: {
     x: 0,
     y: 0

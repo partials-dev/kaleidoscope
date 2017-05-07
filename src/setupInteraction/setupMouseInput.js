@@ -1,7 +1,7 @@
 import averageWindow from './averageWindow'
 
-const getAveragedX = averageWindow(10)
-const getAveragedY = averageWindow(10)
+const getAveragedX = averageWindow(15)
+const getAveragedY = averageWindow(15)
 
 const setupMouseInput = dispatch => {
   let normalizedMouseX = null
