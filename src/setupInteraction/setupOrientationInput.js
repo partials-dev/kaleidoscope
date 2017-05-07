@@ -1,5 +1,5 @@
 import averageWindow from './averageWindow'
-import offset from './offset'
+import getOffset from './getOffset'
 
 const getAveragedX = averageWindow(10)
 const getAveragedY = averageWindow(10)
@@ -14,7 +14,7 @@ const setupOrientationInput = dispatch => {
   const updateKaleidoscopeFromOrientation = event => {
     let rawGamma = event.gamma
     let gamma = rawGamma
-    gamma += offset(lastRawGamma, rawGamma)
+    gamma += getOffset(lastRawGamma, rawGamma)
     let normalizedBeta = ((event.beta / 180) + 1) / 2
 
     if (lastNormalizedBeta == null) {
